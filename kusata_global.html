@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KUSATA GLOBAL | Excellence. Innovation. Legacy.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Outfit:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #9A7530;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark2: #1A1A1A;
+    --dark3: #222222;
+    --white: #F5F0E8;
+    --gray: #888;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Outfit', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ===== CUSTOM CURSOR ===== */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.15s ease, width 0.2s, height 0.2s;
+    opacity: 0.6;
+  }
+
+  /* ===== LOADER ===== */
+  #loader {
+    position: fixed; inset: 0;
+    background: var(--black);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease;
+  }
+  .loader-logo {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    animation: pulse 1.5s ease infinite;
+  }
+  .loader-bar {
+    width: 200px; height: 1px;
+    background: var(--dark3);
+    margin-top: 2rem;
+    overflow: hidden;
+  }
+  .loader-fill {
+    height: 100%;
+    background: var(--gold);
+    animation: load 2s ease forwards;
+  }
+  @keyframes load { from{width:0} to{width:100%} }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4%;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--white); font-weight: 300; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 300;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    padding: 0.5rem 1.2rem !important;
+    transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 25px; height: 1px; background: var(--gold); transition: all 0.3s; }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0A0A0A 0%, #1A1410 50%, #0A0A0A 100%);
+    /* ============================================================
+       👉 REPLACE BACKGROUND: Change the URL below to your image.
+       Example: background-image: url('your-hero-image.jpg');
+       ============================================================ */
+    background-image: url('');
+    background-size: cover;
+    background-position: center;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(10,10,10,0.97) 40%, rgba(10,10,10,0.5) 100%);
+  }
+  .hero-particles {
+    position: absolute; inset: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 1px; height: 1px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: float linear infinite;
+    opacity: 0;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 900px;
+    padding: 0 5%;
+    animation: heroIn 1.2s ease 2.5s both;
+  }
+  @keyframes heroIn { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title strong { color: var(--gold); font-weight: 700; display: block; }
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: rgba(245,240,232,0.6);
+    font-weight: 300;
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+  .hero-btns { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(245,240,232,0.3);
+    padding: 1rem 2.5rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats {
+    position: absolute; bottom: 3rem; right: 5%;
+    display: flex; gap: 3rem;
+    z-index: 2;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--gold);
+    font-weight: 700;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  .scroll-indicator {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column;
+    align-items: center; gap: 0.5rem;
+    z-index: 2;
+    opacity: 0.5;
+  }
+  .scroll-indicator span { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; }
+  .scroll-line { width: 1px; height: 40px; background: var(--gold); animation: scrollDown 2s ease infinite; }
+  @keyframes scrollDown { 0%,100%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} }
+
+  /* ===== SECTION COMMON ===== */
+  section { padding: 7rem 5%; }
+  .section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-tag::before { content:''; width:30px; height:1px; background:var(--gold); }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-title strong { color: var(--gold); }
+  .gold-line { width: 60px; height: 2px; background: var(--gold); margin: 1.5rem 0; }
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0.3;
+    margin: 0;
+  }
+
+  /* ===== ABOUT ===== */
+  #about { background: var(--dark2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.2);
+    position: relative;
+    overflow: hidden;
+    /* ============================================================
+       👉 BACKGROUND IMAGE PLACEHOLDER — About Section
+       Replace the gradient below with your image:
+       background-image: url('about-image.jpg');
+       ============================================================ */
+    background-image: linear-gradient(45deg, #1a1a1a, #2a2a1a);
+  }
+  .about-img-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .about-img-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem;
+    color: var(--gold);
+    opacity: 0.4;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .about-img-placeholder svg { width: 50px; height: 50px; }
+  .about-corner {
+    position: absolute;
+    width: 30px; height: 30px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.6;
+  }
+  .about-corner.tl { top: -8px; left: -8px; border-width: 2px 0 0 2px; }
+  .about-corner.br { bottom: -8px; right: -8px; border-width: 0 2px 2px 0; }
+  .about-badge {
+    position: absolute;
+    bottom: -1.5rem; right: -1.5rem;
+    background: var(--gold);
+    color: var(--black);
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .about-badge span { font-size: 0.6rem; letter-spacing: 0.2em; font-family: var(--font-body); }
+  .about-text p {
+    color: rgba(245,240,232,0.6);
+    font-weight: 300;
+    line-height: 1.9;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .feature-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+  }
+  .feature-icon {
+    width: 40px; height: 40px; min-width: 40px;
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 1rem;
+  }
+  .feature-item h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: var(--white);
+  }
+  .feature-item p { font-size: 0.75rem; color: var(--gray); line-height: 1.6; margin: 0; }
+
+  /* ===== CEO SECTION ===== */
+  #ceo {
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+  #ceo::before {
+    content: 'CEO';
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 20vw;
+    font-weight: 700;
+    color: rgba(201,168,76,0.03);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .ceo-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 6rem;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .ceo-card {
+    position: relative;
+  }
+  .ceo-photo-wrap {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .ceo-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.25);
+    position: relative;
+    overflow: hidden;
+    /* ============================================================
+       👉 CEO PASSPORT PHOTO — Replace gradient with CEO image:
+       background: url('ceo-photo.jpg') center/cover no-repeat;
+       For passport style: use a close-up portrait image.
+       ============================================================ */
+    background: linear-gradient(160deg, #1e1e1e 0%, #2a2510 100%);
+  }
+  .ceo-photo-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem; color: var(--gold); opacity: 0.3;
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+  }
+  .ceo-photo-placeholder svg { width: 60px; height: 60px; }
+  .ceo-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .ceo-gold-border {
+    position: absolute;
+    top: 12px; left: 12px; right: -12px; bottom: -12px;
+    border: 1px solid rgba(201,168,76,0.3);
+    z-index: -1;
+  }
+  .ceo-name-card {
+    background: var(--gold);
+    color: var(--black);
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .ceo-name-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .ceo-name-card p {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    font-weight: 600;
+  }
+  .ceo-socials {
+    display: flex; justify-content: center; gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .ceo-social-link {
+    width: 38px; height: 38px;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .ceo-social-link:hover { background: var(--gold); color: var(--black); }
+  .ceo-info { padding-top: 1rem; }
+  .ceo-info .section-tag { margin-bottom: 0.5rem; }
+  .ceo-bio {
+    color: rgba(245,240,232,0.65);
+    font-weight: 300;
+    line-height: 1.95;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .ceo-quote {
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 2rem;
+    background: rgba(201,168,76,0.05);
+    margin: 2.5rem 0;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--white);
+  }
+  .ceo-quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-style: normal;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    font-family: var(--font-body);
+  }
+  .ceo-achievements {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .achievement {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border: 1px solid rgba(201,168,76,0.15);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .achievement:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+  .achievement-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--gold);
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .achievement p { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+
+  /* ===== PRODUCTS ===== */
+  #products { background: var(--dark2); }
+  .products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+  }
+  .product-slideshow {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.1);
+  }
+  .slides-track {
+    display: flex;
+    transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  .slide {
+    min-width: 100%;
+    position: relative;
+    aspect-ratio: 16/7;
+    background: var(--dark3);
+    overflow: hidden;
+  }
+  .slide-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .slide-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem;
+  }
+  .slide-placeholder svg { width: 60px; height: 60px; color: var(--gold); opacity: 0.3; }
+  /* ============================================================
+     👉 PRODUCT SLIDESHOW IMAGES — 6 slides below.
+     For each slide, find the matching comment and replace
+     the gradient with your product image:
+     background: url('product1.jpg') center/cover no-repeat;
+     ============================================================ */
+  .slide:nth-child(1) { background: linear-gradient(135deg, #1a1a1a 0%, #2a2010 100%); }
+  .slide:nth-child(2) { background: linear-gradient(135deg, #0f1a0f 0%, #1a2a10 100%); }
+  .slide:nth-child(3) { background: linear-gradient(135deg, #1a0f0f 0%, #2a1010 100%); }
+  .slide:nth-child(4) { background: linear-gradient(135deg, #0f0f1a 0%, #10102a 100%); }
+  .slide:nth-child(5) { background: linear-gradient(135deg, #1a1010 0%, #2a1a05 100%); }
+  .slide:nth-child(6) { background: linear-gradient(135deg, #0a1a1a 0%, #102020 100%); }
+  .slide-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 2rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  }
+  .slide-caption h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem; color: var(--white); font-weight: 400;
+  }
+  .slide-caption p { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.15em; }
+  .slide-num-label {
+    font-size: 0.6rem; letter-spacing: 0.3em;
+    color: var(--gray); text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .slide-controls {
+    position: absolute; bottom: 1.5rem; right: 1.5rem;
+    display: flex; gap: 0.5rem;
+  }
+  .slide-btn {
+    width: 44px; height: 44px;
+    background: rgba(10,10,10,0.6);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+    font-size: 1rem;
+  }
+  .slide-btn:hover { background: var(--gold); color: var(--black); }
+  .slide-dots {
+    display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem;
+  }
+  .dot {
+    width: 30px; height: 2px;
+    background: rgba(201,168,76,0.3);
+    cursor: pointer; transition: background 0.3s;
+  }
+  .dot.active { background: var(--gold); }
+  .slide-progress {
+    height: 2px;
+    background: rgba(201,168,76,0.15);
+  }
+  .slide-progress-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.1s linear;
+  }
+
+  /* ===== PRODUCT GRID ===== */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 3rem auto 0;
+  }
+  .product-card {
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.1);
+    overflow: hidden;
+    transition: all 0.4s;
+    cursor: pointer;
+    position: relative;
+  }
+  .product-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(201,168,76,0.1); }
+  .product-card-img {
+    aspect-ratio: 4/3;
+    background: var(--dark2);
+    overflow: hidden;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* ============================================================
+     👉 PRODUCT CARD IMAGES — 6 cards below.
+     Replace each gradient with your product photo:
+     background: url('product-card-1.jpg') center/cover no-repeat;
+     ============================================================ */
+  .product-card:nth-child(1) .product-card-img { background: linear-gradient(135deg,#1a1200,#2a2000); }
+  .product-card:nth-child(2) .product-card-img { background: linear-gradient(135deg,#001a10,#002a15); }
+  .product-card:nth-child(3) .product-card-img { background: linear-gradient(135deg,#1a0010,#2a0020); }
+  .product-card:nth-child(4) .product-card-img { background: linear-gradient(135deg,#00101a,#00152a); }
+  .product-card:nth-child(5) .product-card-img { background: linear-gradient(135deg,#1a1000,#2a1800); }
+  .product-card:nth-child(6) .product-card-img { background: linear-gradient(135deg,#0a001a,#10002a); }
+  .product-card-img-placeholder {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.7rem;
+    color: var(--gold); opacity: 0.25;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  }
+  .product-card-img-placeholder svg { width: 40px; height: 40px; }
+  .product-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .product-card:hover .product-card-img img { transform: scale(1.07); }
+  .product-card-tag {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--gold); color: var(--black);
+    font-size: 0.6rem; letter-spacing: 0.2em;
+    padding: 0.3rem 0.7rem; font-weight: 600; text-transform: uppercase;
+  }
+  .product-card-body { padding: 1.5rem; }
+  .product-card-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem; font-weight: 600;
+    margin-bottom: 0.5rem; color: var(--white);
+  }
+  .product-card-body p { font-size: 0.8rem; color: var(--gray); line-height: 1.6; margin-bottom: 1rem; }
+  .product-card-footer {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .product-price { color: var(--gold); font-weight: 600; font-size: 1rem; }
+  .product-btn {
+    background: transparent; border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold); padding: 0.4rem 1rem;
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; cursor: pointer;
+    transition: all 0.3s; font-family: var(--font-body);
+  }
+  .product-btn:hover { background: var(--gold); color: var(--black); }
+
+  /* ===== TESTIMONIALS ===== */
+  #testimonials { background: var(--black); }
+  .testimonials-wrap { max-width: 900px; margin: 0 auto; text-align: center; }
+  .testimonial-slider { position: relative; overflow: hidden; min-height: 220px; }
+  .testimonial-item {
+    position: absolute; inset: 0;
+    opacity: 0; transition: opacity 0.8s ease;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  .testimonial-item.active { opacity: 1; }
+  .testimonial-stars { color: var(--gold); font-size: 1.2rem; margin-bottom: 1.5rem; letter-spacing: 0.3em; }
+  .testimonial-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .testimonial-author { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+  .testimonial-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+  .t-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(201,168,76,0.3); cursor: pointer; transition: background 0.3s; }
+  .t-dot.active { background: var(--gold); }
+
+  /* ===== CONTACT ===== */
+  #contact { background: var(--dark2); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .contact-info h3 {
+    font-family: var(--font-display);
+    font-size: 2rem; font-weight: 300;
+    margin-bottom: 1rem; color: var(--white);
+  }
+  .contact-info p { color: var(--gray); line-height: 1.8; font-weight: 300; margin-bottom: 2rem; }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .contact-icon {
+    width: 44px; height: 44px; min-width: 44px;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+  }
+  .contact-item-text h4 { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+  /* ============================================================
+     👉 CONTACT DETAILS — Edit the placeholders below:
+     Phone: Replace "+1 000 000 0000" with your actual phone
+     Email: Replace "info@kusataglobal.com" with your email
+     Address: Replace with your actual address
+     ============================================================ */
+  .contact-item-text p { color: var(--white); font-weight: 300; }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { position: relative; }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    color: var(--white);
+    padding: 1rem 1.2rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--gold); }
+  .form-group textarea { resize: vertical; min-height: 140px; }
+  .form-group select { cursor: pointer; }
+  .form-group select option { background: var(--dark2); }
+  .form-group label {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .submit-btn {
+    background: var(--gold); color: var(--black);
+    border: none; padding: 1.1rem 2rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem; letter-spacing: 0.2em;
+    text-transform: uppercase; font-weight: 700;
+    cursor: pointer; transition: all 0.3s;
+    width: 100%;
+  }
+  .submit-btn:hover { background: var(--gold-light); }
+  .form-success {
+    display: none; text-align: center; padding: 2rem;
+    color: var(--gold); font-family: var(--font-display);
+    font-size: 1.5rem;
+  }
+
+  /* ===== GALLERY ===== */
+  #gallery { background: var(--black); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .gallery-item {
+    background: var(--dark3);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgba(201,168,76,0.08);
+    transition: border-color 0.3s;
+  }
+  .gallery-item:hover { border-color: rgba(201,168,76,0.4); }
+  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .gallery-item:nth-child(4) { grid-column: span 2; }
+  .gallery-img {
+    width: 100%; height: 100%; min-height: 180px;
+    object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+  }
+  .gallery-item:hover .gallery-img { transform: scale(1.05); }
+  /* ============================================================
+     👉 GALLERY IMAGES — 6 gallery spots below.
+     Replace each gradient with your actual product/brand images:
+     background: url('gallery-1.jpg') center/cover no-repeat;
+     ============================================================ */
+  .gallery-item:nth-child(1) { background: linear-gradient(135deg,#1a1200,#2d2200); min-height: 380px; }
+  .gallery-item:nth-child(2) { background: linear-gradient(135deg,#001a15,#002a20); }
+  .gallery-item:nth-child(3) { background: linear-gradient(135deg,#1a0010,#2a0018); }
+  .gallery-item:nth-child(4) { background: linear-gradient(135deg,#00101a,#001525); }
+  .gallery-item:nth-child(5) { background: linear-gradient(135deg,#1a1000,#2a1800); }
+  .gallery-item:nth-child(6) { background: linear-gradient(135deg,#0a001a,#150028); }
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.5);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 2rem;
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-img-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.5rem;
+    color: var(--gold); opacity: 0.2;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  }
+  .gallery-img-placeholder svg { width: 35px; height: 35px; }
+
+  /* ===== LIGHTBOX ===== */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 9000;
+    background: rgba(0,0,0,0.95);
+    display: none; align-items: center; justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-img { max-width: 90vw; max-height: 90vh; }
+  .lightbox-close {
+    position: absolute; top: 2rem; right: 2rem;
+    color: var(--gold); font-size: 2rem; cursor: pointer;
+    background: none; border: none;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #050505;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  .footer-top {
+    padding: 5rem 5% 3rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-brand .nav-logo { font-size: 1.8rem; margin-bottom: 1rem; display: block; text-decoration: none; }
+  .footer-brand p { color: var(--gray); font-size: 0.85rem; line-height: 1.8; font-weight: 300; max-width: 280px; }
+  .footer-social { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+  .footer-social a {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gray); text-decoration: none;
+    transition: all 0.3s; font-size: 0.85rem;
+  }
+  .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+  .footer-col h4 {
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem; font-weight: 600;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.8rem; }
+  .footer-col ul li a {
+    color: var(--gray); text-decoration: none;
+    font-size: 0.85rem; font-weight: 300;
+    transition: color 0.3s;
+  }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 1.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-bottom p { color: var(--gray); font-size: 0.75rem; }
+  .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+  /* ===== MOBILE NAV ===== */
+  .mobile-menu {
+    display: none;
+    position: fixed; inset: 0;
+    background: var(--black);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: 2.5rem; color: var(--white);
+    text-decoration: none; font-weight: 300;
+    transition: color 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu-close {
+    position: absolute; top: 1.5rem; right: 5%;
+    font-size: 2rem; color: var(--gold);
+    background: none; border: none; cursor: pointer;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-up-2 { transition-delay: 0.15s; }
+  .fade-up-3 { transition-delay: 0.3s; }
+  .fade-up-4 { transition-delay: 0.45s; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .ceo-grid { grid-template-columns: 300px 1fr; gap: 3rem; }
+    .about-grid { gap: 3rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .hero-stats { bottom: 2rem; gap: 2rem; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .about-grid,
+    .ceo-grid,
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+    .gallery-item:nth-child(4) { grid-column: span 1; }
+    .hero-stats { display: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .ceo-achievements { grid-template-columns: 1fr 1fr; }
+    .about-features { grid-template-columns: 1fr; }
+    .ceo-photo { aspect-ratio: 3/4; max-width: 340px; }
+    .products-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+    .slide { aspect-ratio: 4/3; }
+    .form-row { grid-template-columns: 1fr; }
+    section { padding: 5rem 5%; }
+  }
+  @media (max-width: 480px) {
+    .footer-top { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gallery-item:nth-child(1),
+    .gallery-item:nth-child(4) { grid-column: span 1; }
+    .ceo-achievements { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-outline { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">KUSATA GLOBAL</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+  <a href="#hero" onclick="closeMobileMenu()">Home</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#ceo" onclick="closeMobileMenu()">Leadership</a>
+  <a href="#products" onclick="closeMobileMenu()">Products</a>
+  <a href="#gallery" onclick="closeMobileMenu()">Gallery</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">KUSATA <span>GLOBAL</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#ceo">Leadership</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <div class="hamburger" onclick="openMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Est. Since Day One &nbsp;·&nbsp; Premium Global Brand</div>
+    <h1 class="hero-title">
+      KUSATA
+      <strong>GLOBAL</strong>
+    </h1>
+    <p class="hero-subtitle">Where excellence meets innovation. We craft extraordinary products that redefine standards and transform lives across the globe.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">Explore Products</a>
+      <a href="#about" class="btn-outline">Our Story</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num" data-target="4">0</span>
+      <span class="stat-label">Countries</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-target="10">0</span>
+      <span class="stat-label">Years Strong</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-target="5000">0</span>
+      <span class="stat-label">Clients Served</span>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap fade-up">
+      <div class="about-img-frame">
+        <!-- ============================================================
+             👉 ABOUT IMAGE: Remove the placeholder and add an <img> tag:
+             <img src="about-photo.jpg" alt="About Kusata Global">
+             ============================================================ -->
+        <!--<div class="about-img.jpg"> -->
+
+          <img src="kusatapics/about-img.jpg" alt="About Kusata Global">
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Place About<br>Section Image<br>Here
+        </div>
+        <div class="about-corner tl"></div>
+        <div class="about-corner br"></div>
+      </div>
+      <div class="about-badge">2+<span>Years</span></div>
+    </div>
+    <div class="about-text">
+      <div class="section-tag fade-up">Who We Are</div>
+      <h2 class="section-title fade-up fade-up-2">Built on <strong>Trust.</strong><br>Driven by <strong>Vision.</strong></h2>
+      <div class="gold-line fade-up fade-up-2"></div>
+      <p class="fade-up fade-up-3">KUSATA GLOBAL is a premier brand rooted in excellence and powered by relentless innovation. From our very first product to our expanding global presence, we have always stood for quality that speaks before we do.</p>
+      <p class="fade-up fade-up-3">Our mission is simple — to deliver world-class products that improve lives, inspire communities, and leave a lasting legacy. We don't just sell; we create experiences that people remember and return to.</p>
+      <div class="about-features fade-up fade-up-4">
+        <div class="feature-item">
+          <div class="feature-icon">✦</div>
+          <div>
+            <h4>Premium Quality</h4>
+            <p>Every product crafted to the highest global standard.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⟳</div>
+          <div>
+            <h4>Innovation First</h4>
+            <p>Constantly evolving to meet tomorrow's needs today.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">◉</div>
+          <div>
+            <h4>Global Reach</h4>
+            <p>Serving clients across continents with pride.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">❋</div>
+          <div>
+            <h4>Customer Focus</h4>
+            <p>Your satisfaction is the foundation we build on.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CEO -->
+<section id="ceo">
+  <div class="ceo-grid">
+    <div class="ceo-card fade-up">
+      <div class="ceo-photo-wrap">
+        <div class="ceo-photo">
+          <!-- ============================================================
+               👉 CEO PASSPORT PHOTO: Remove the placeholder below and
+               add the CEO's passport-size photo like this:
+               <img src="ceo-photo.jpg" alt="CEO Name">
+               Recommended: A formal portrait photo, 3x4 aspect ratio.
+               ============================================================ -->
+
+
+
+
+
+
+
+
+          <div class="ceo-photo-placeholder">
+            <img src="kusatapics/ceo-photo.jpg" alt="CEO Name">
+
+
+
+
+
+
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            CEO Passport<br>Photo Here
+          </div>
+        </div>
+        <div class="ceo-gold-border"></div>
+      </div>
+      <div class="ceo-name-card">
+        <!-- ============================================================
+             👉 CEO NAME & TITLE: Edit the name and title below.
+             ============================================================ -->
+        <h3>Mr. Tunkara</h3>
+        <p>Founder & Chief Executive Officer</p>
+      </div>
+      <div class="ceo-socials">
+        <!-- ============================================================
+             👉 CEO SOCIAL LINKS: Replace # with actual profile URLs.
+             ============================================================ -->
+
+
+
+        <a href="#" class="ceo-social-link" title="LinkedIn">in</a>
+        <a href="#" class="ceo-social-link" title="Twitter">𝕏</a>
+        <a href="#" class="https://www.instagram.com/kusataglobal?igsh=bDA3dTjoemt0ODRv" title="Instagram">✦</a>
+        <a href="#" class="ceo-social-link" title="Facebook">f</a>
+         
+
+
+
+      </div>
+    </div>
+    <div class="ceo-info">
+      <div class="section-tag fade-up">Our Leadership</div>
+      <!-- ============================================================
+           👉 CEO SECTION TITLE: Customize the CEO's name here too.
+           ============================================================ -->
+      <h2 class="section-title fade-up fade-up-2">The Visionary<br>Behind <strong>KUSATA.</strong></h2>
+      <div class="gold-line fade-up fade-up-2"></div>
+      <!-- ============================================================
+           👉 CEO BIO: Write the CEO's biography here. Replace this text.
+           ============================================================ -->
+      <p class="ceo-bio fade-up fade-up-3">
+        Mr. tunkara is a trailblazing entrepreneur and visionary leader with a passion for building brands that matter. With over a two years of experience in (Industry), he has built KUSATA GLOBAL from the ground up — turning a bold idea into a global powerhouse.
+      </p>
+      <p class="ceo-bio fade-up fade-up-3">
+        His philosophy is simple: "Build something the world needs, treat your team like family, and never stop learning." Under his leadership, KUSATA GLOBAL has expanded into the gambia for now, served hundreds clients, and earned a reputation as one of the most trusted brands in its category.
+      </p>
+      <blockquote class="ceo-quote fade-up fade-up-4">
+        "Excellence is not a destination — it is a standard we wake up and choose every single morning."
+        <!-- ============================================================
+             👉 CEO QUOTE ATTRIBUTION: Replace with the CEO's actual name.
+             ============================================================ -->
+        <cite>— Mr. Tunkara, Founder & CEO, KUSATA GLOBAL</cite>
+      </blockquote>
+      <div class="ceo-achievements fade-up fade-up-4">
+        <div class="achievement">
+          <span class="achievement-num" data-target="3">0</span>
+          <p>Years of Leadership</p>
+        </div>
+        <div class="achievement">
+          <span class="achievement-num" data-target="2">0</span>
+          <p>Countries Reached</p>
+        </div>
+        <div class="achievement">
+          <span class="achievement-num" data-target="3">0</span>
+          <p>Awards Won</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="products-header">
+    <div>
+      <div class="section-tag fade-up">What We Offer</div>
+      <h2 class="section-title fade-up fade-up-2">Our <strong>Products</strong></h2>
+    </div>
+    <a href="#contact" class="btn-outline fade-up fade-up-3" style="white-space:nowrap">View All</a>
+  </div>
+
+  <!-- AUTO-SCROLLING SLIDESHOW -->
+  <div class="product-slideshow fade-up">
+    <div class="slide-progress"><div class="slide-progress-fill" id="progressFill"></div></div>
+    <div class="slides-track" id="slidesTrack">
+      <!-- SLIDE 1 -->
+      <div class="slide">
+
+
+
+        <!-- 👉 SLIDE 1 IMAGE: Replace gradient in CSS or add: <img src="slide1.jpg" class="slide-img"> -->
+        <!--<div class="slide-placeholder"> -->
+          <img src="kusatapics/slide1.jpg" class="slide-img"> 
+
+
+
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="60" height="60"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="slide-caption">
+          <div class="slide-num-label">Featured Product — 01</div>
+          <!-- ============================================================
+               👉 SLIDE CAPTIONS: Replace product names and descriptions below.
+               ============================================================ -->
+          <h3>KUSATA IMAGE 1</h3>
+          <p>KUSATA GLOBAL</p>
+        </div>
+        <div class="slide-controls">
+          <button class="slide-btn" onclick="changeSlide(-1)">←</button>
+          <button class="slide-btn" onclick="changeSlide(1)">→</button>
+        </div>
+      </div>
+      <!-- SLIDE 2 -->
+      <div class="slide">
+
+
+
+       <!-- <div class="slide-placeholder">-->
+         <img src="kusatapics/slide2.jpg" class="slide-img"> 
+
+
+
+
+          
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="60" height="60"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="slide-caption">
+          <div class="slide-num-label">Featured Product — 02</div>
+          <h3>KUSATA IMAGE 2</h3>
+          <p>KUSATA GLOBAL</p>
+        </div>
+        <div class="slide-controls">
+          <button class="slide-btn" onclick="changeSlide(-1)">←</button>
+          <button class="slide-btn" onclick="changeSlide(1)">→</button>
+        </div>
+      </div>
+      <!-- SLIDE 3 -->
+      <div class="slide">
+
+
+
+
+
+ <!-- <div class="slide-placeholder">-->
+      
+           <img src="kusatapics/slide3.jpg" class="slide-img"> 
+          
+          
+          
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="60" height="60"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="slide-caption">
+          <div class="slide-num-label">Featured Product — 03</div>
+          <h3>KUSATA IMAGE 3</h3>
+          <p>KUSATA GLOBAL</p>
+        </div>
+        <div class="slide-controls">
+          <button class="slide-btn" onclick="changeSlide(-1)">←</button>
+          <button class="slide-btn" onclick="changeSlide(1)">→</button>
+        </div>
+      </div>
+      <!-- SLIDE 4 -->
+      <div class="slide">
+
+
+
+
+<!-- <div class="slide-placeholder">-->
+        <img src="kusatapics/slide4.jpg" class="slide-img">
+          
+        
+        
+          
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="60" height="60"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="slide-caption">
+          <div class="slide-num-label">Featured Product — 04</div>
+          <h3>KUSATA IMAGE 4</h3>
+          <p>KUSATA GLOBAL</p>
+        </div>
+        <div class="slide-controls">
+          <button class="slide-btn" onclick="changeSlide(-1)">←</button>
+          <button class="slide-btn" onclick="changeSlide(1)">→</button>
+        </div>
+      </div>
+      <!-- SLIDE 5 -->
+      <div class="slide">
+
+
+    <!-- <div class="slide-placeholder">-->
+        <img src="kusatapics/slide2.jpg" class="slide-img">
+          
+          
+          
+          
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="60" height="60"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="slide-caption">
+          <div class="slide-num-label">Featured Product — 05</div>
+          <h3>KUSATA IMAGE 5</h3>
+          <p>KUSATA GLOBAL</p>
+        </div>
+        <div class="slide-controls">
+          <button class="slide-btn" onclick="changeSlide(-1)">←</button>
+          <button class="slide-btn" onclick="changeSlide(1)">→</button>
+        </div>
+      </div>
+      <!-- SLIDE 6 -->
+      <div class="slide">
+
+
+
+        <!-- <div class="slide-placeholder">-->
+        <img src="kusatapics/slide4.jpg" class="slide-img">
+          
+          
+          
+          
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="60" height="60"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="slide-caption">
+          <div class="slide-num-label">Featured Product — 06</div>
+          <h3>KUSATA IMAGE 6</h3>
+          <p>KUSATA GLOBAL</p>
+        </div>
+        <div class="slide-controls">
+          <button class="slide-btn" onclick="changeSlide(-1)">←</button>
+          <button class="slide-btn" onclick="changeSlide(1)">→</button>
+        </div>
+      </div>
+    </div>
+    <div class="slide-dots" id="slideDots"></div>
+  </div>
+
+  <!-- PRODUCT CARDS -->
+  <div class="product-grid">
+    <!-- CARD 1 -->
+    <div class="product-card fade-up">
+      <div class="product-card-img">
+        <!-- 👉 CARD IMAGE: Add <img src="product1.jpg" alt="Product 1"> inside this div -->
+        <div class="product-card-img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Product Image
+        </div>
+        <div class="product-card-tag">New</div>
+      </div>
+      <div class="product-card-body">
+        <!-- ============================================================
+             👉 PRODUCT CARDS: Edit name, description, and price below.
+             ============================================================ -->
+        <h3>[Product Name 1: comming soon]</h3>
+        <p>[Short product description. What makes it special and unique.]</p>
+        <div class="product-card-footer">
+          <span class="product-price">Contact Us</span>
+          <button class="product-btn" onclick="scrollToContact()">Enquire</button>
+        </div>
+      </div>
+    </div>
+    <!-- CARD 2 -->
+    <div class="product-card fade-up fade-up-2">
+      <div class="product-card-img">
+        <div class="product-card-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Product Image</div>
+        <div class="product-card-tag">Popular</div>
+      </div>
+      <div class="product-card-body">
+        <h3>[Product Name 2] comming soon</h3>
+        <p>[Short product description. What makes it special and unique.]</p>
+        <div class="product-card-footer">
+          <span class="product-price">Contact Us</span>
+          <button class="product-btn" onclick="scrollToContact()">Enquire</button>
+        </div>
+      </div>
+    </div>
+    <!-- CARD 3 -->
+    <div class="product-card fade-up fade-up-3">
+      <div class="product-card-img">
+        <div class="product-card-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Product Image</div>
+        <div class="product-card-tag">Premium</div>
+      </div>
+      <div class="product-card-body">
+        <h3>[Product Name 3] comming soon</h3>
+        <p>[Short product description. What makes it special and unique.]</p>
+        <div class="product-card-footer">
+          <span class="product-price">Contact Us</span>
+          <button class="product-btn" onclick="scrollToContact()">Enquire</button>
+        </div>
+      </div>
+    </div>
+    <!-- CARD 4 -->
+    <div class="product-card fade-up">
+      <div class="product-card-img">
+        <div class="product-card-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Product Image</div>
+        <div class="product-card-tag">Best Seller</div>
+      </div>
+      <div class="product-card-body">
+        <h3>[Product Name 4] comming soon</h3>
+        <p>[Short product description. What makes it special and unique.]</p>
+        <div class="product-card-footer">
+          <span class="product-price">Contact Us</span>
+          <button class="product-btn" onclick="scrollToContact()">Enquire</button>
+        </div>
+      </div>
+    </div>
+    <!-- CARD 5 -->
+    <div class="product-card fade-up fade-up-2">
+      <div class="product-card-img">
+        <div class="product-card-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Product Image</div>
+        <div class="product-card-tag">Exclusive</div>
+      </div>
+      <div class="product-card-body">
+        <h3>[Product Name 5] comming soon</h3>
+        <p>[Short product description. What makes it special and unique.]</p>
+        <div class="product-card-footer">
+          <span class="product-price">Contact Us</span>
+          <button class="product-btn" onclick="scrollToContact()">Enquire</button>
+        </div>
+      </div>
+    </div>
+    <!-- CARD 6 -->
+    <div class="product-card fade-up fade-up-3">
+      <div class="product-card-img">
+        <div class="product-card-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Product Image</div>
+        <div class="product-card-tag">Limited</div>
+      </div>
+      <div class="product-card-body">
+        <h3>[Product Name 6] comming soon</h3>
+        <p>[Short product description. What makes it special and unique.]</p>
+        <div class="product-card-footer">
+          <span class="product-price">Contact Us</span>
+          <button class="product-btn" onclick="scrollToContact()">Enquire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div style="max-width:1200px;margin:0 auto 3rem;">
+    <div class="section-tag fade-up">Visual Showcase</div>
+    <h2 class="section-title fade-up fade-up-2">Brand <strong>Gallery</strong></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item fade-up" onclick="openLightbox(this)">
+      <!-- 👉 GALLERY IMAGE 1 (Large Featured): <img class="gallery-img" src="gallery1.jpg" alt="Gallery 1"> -->
+      <div class="gallery-img-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="35" height="35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Featured Image
+      </div>
+      <div class="gallery-overlay">⊕</div>
+    </div>
+    <div class="gallery-item fade-up fade-up-2" onclick="openLightbox(this)">
+      <!-- 👉 GALLERY IMAGE 2: <img class="gallery-img" src="gallery2.jpg" alt="Gallery 2"> -->
+      <div class="gallery-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="35" height="35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Image 2</div>
+      <div class="gallery-overlay">⊕</div>
+    </div>
+    <div class="gallery-item fade-up fade-up-3" onclick="openLightbox(this)">
+      <!-- 👉 GALLERY IMAGE 3: <img class="gallery-img" src="gallery3.jpg" alt="Gallery 3"> -->
+      <div class="gallery-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="35" height="35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Image 3</div>
+      <div class="gallery-overlay">⊕</div>
+    </div>
+    <div class="gallery-item fade-up" onclick="openLightbox(this)">
+      <!-- 👉 GALLERY IMAGE 4 (Wide): <img class="gallery-img" src="gallery4.jpg" alt="Gallery 4"> -->
+      <div class="gallery-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="35" height="35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Wide Image</div>
+      <div class="gallery-overlay">⊕</div>
+    </div>
+    <div class="gallery-item fade-up fade-up-2" onclick="openLightbox(this)">
+      <!-- 👉 GALLERY IMAGE 5: <img class="gallery-img" src="gallery5.jpg" alt="Gallery 5"> -->
+      <div class="gallery-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="35" height="35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Image 5</div>
+      <div class="gallery-overlay">⊕</div>
+    </div>
+    <div class="gallery-item fade-up fade-up-3" onclick="openLightbox(this)">
+      <!-- 👉 GALLERY IMAGE 6: <img class="gallery-img" src="gallery6.jpg" alt="Gallery 6"> -->
+      <div class="gallery-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="35" height="35"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Image 6</div>
+      <div class="gallery-overlay">⊕</div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-wrap">
+    <div class="section-tag fade-up" style="justify-content:center">Client Stories</div>
+    <h2 class="section-title fade-up fade-up-2" style="text-align:center">What People <strong>Say</strong></h2>
+    <div class="gold-line fade-up fade-up-2" style="margin:1.5rem auto"></div>
+    <div class="testimonial-slider" id="testimonialSlider">
+      <div class="testimonial-item active">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"KUSATA GLOBAL completely transformed our business. The quality of their products is unmatched — and their team goes above and beyond every single time."</p>
+        <span class="testimonial-author">— [Client Name], [Company / Country]</span>
+      </div>
+      <div class="testimonial-item">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I've worked with many global brands, but none compare to the personal touch and excellence that KUSATA GLOBAL delivers. Truly world-class in every way."</p>
+        <span class="testimonial-author">— [Client Name], [Company / Country]</span>
+      </div>
+      <div class="testimonial-item">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"From the first inquiry to delivery, the experience was flawless. KUSATA GLOBAL sets the gold standard for what a premium brand should look and feel like."</p>
+        <span class="testimonial-author">— [Client Name], [Company / Country]</span>
+      </div>
+      <div class="testimonial-item">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Outstanding quality and exceptional service. Our partnership with KUSATA GLOBAL has been one of the best decisions we have ever made for our organization."</p>
+        <span class="testimonial-author">— [Client Name], [Company / Country]</span>
+      </div>
+    </div>
+    <div class="testimonial-dots" id="testimonialDots"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-tag fade-up">Get In Touch</div>
+      <h2 class="section-title fade-up fade-up-2">Let's <strong>Connect</strong><br>& Grow Together.</h2>
+      <div class="gold-line fade-up fade-up-2"></div>
+      <p class="fade-up fade-up-3">Ready to experience the KUSATA GLOBAL difference? Reach out to us today. Our team is available around the clock to answer your questions and guide you every step of the way.</p>
+
+      <!-- ============================================================
+           👉 CONTACT DETAILS SECTION — Edit all [placeholders] below:
+           Replace phone numbers, email, and address with your real info.
+           ============================================================ -->
+      <div class="contact-item fade-up fade-up-3">
+        <div class="contact-icon">📞</div>
+        <div class="contact-item-text">
+          <h4>Phone / WhatsApp</h4>
+          <!-- 👉 Replace with your actual phone number -->
+          <p>+220 3580713</p>
+        </div>
+      </div>
+      <div class="contact-item fade-up fade-up-3">
+        <div class="contact-icon">✉</div>
+        <div class="contact-item-text">
+          <h4>Email Address</h4>
+          <!-- 👉 Replace with your actual email -->
+          <p>comming soon</p>
+        </div>
+      </div>
+      <div class="contact-item fade-up fade-up-3">
+        <div class="contact-icon">📍</div>
+        <div class="contact-item-text">
+          <h4>Office Location</h4>
+          <!-- 👉 Replace with your actual address -->
+          <p>[Street Address, City, Country]</p>
+        </div>
+      </div>
+      <div class="contact-item fade-up fade-up-4">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-item-text">
+          <h4>Business Hours</h4>
+          <!-- 👉 Replace with your actual hours -->
+          <p>Mon – Sart: 8:00 AM – 6:00 PM</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-up fade-up-3">
+      <div class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" placeholder="Your full name" id="fname">
+          </div>
+          <div class="form-group">
+            <label>+220 3580713 *</label>
+            <input type="tel" placeholder="+1 234 567 8900" id="fphone">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" placeholder="comming soon" id="femail">
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <select id="fsubject">
+            <option value="">— Select a Subject —</option>
+            <option>Product Enquiry</option>
+            <option>Partnership Opportunity</option>
+            <option>Wholesale / Bulk Order</option>
+            <option>General Information</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Your Message *</label>
+          <textarea placeholder="Tell us about your needs, and how we can help you..." id="fmessage"></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitForm()">Send Message →</button>
+      </div>
+      <div class="form-success" id="formSuccess">
+        ✦ Thank you! We will be in touch shortly.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#hero" class="nav-logo">KUSATA <span>GLOBAL</span></a>
+      <p>Excellence is not what we do — it's who we are. Building legacies, one product at a time, across the globe.</p>
+      <div class="footer-social">
+        <!-- ============================================================
+             👉 FOOTER SOCIAL LINKS: Replace # with your actual URLs.
+             ============================================================ -->
+        <a href="#" title="Facebook">f</a>
+        <a href="#" title="Instagram">✦</a>
+        <a href="#" title="Twitter">𝕏</a>
+        <a href="#" title="LinkedIn">in</a>
+        <a href="#" title="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#ceo">Leadership</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <!-- 👉 Replace these with your actual product names -->
+        <li><a href="#products">[Product Line 1]</a></li>
+        <li><a href="#products">[Product Line 2]</a></li>
+        <li><a href="#products">[Product Line 3]</a></li>
+        <li><a href="#products">[Product Line 4]</a></li>
+        <li><a href="#products">[Product Line 5]</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <!-- 👉 Replace with your real contact info -->
+        <li><a href="tel:+10000000000">+220 3580713</a></li>
+        <li><a href="mailto:comming soon">comming soon</a></li>
+        <li><a href="#contact">Banjul, Gambia</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> KUSATA GLOBAL. All Rights Reserved.</p>
+    <p>Crafted with <span style="color:var(--gold)">✦</span> for Excellence</p>
+  </div>
+</footer>
+
+<script>
+  // ===== LOADER =====
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('loader');
+      loader.style.opacity = '0';
+      setTimeout(() => { loader.style.display = 'none'; }, 800);
+    }, 2200);
+  });
+
+  // ===== YEAR =====
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ===== CURSOR =====
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  if (cursor && ring) {
+    document.addEventListener('mousemove', e => {
+      cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
+      ring.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
+    });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width = '60px'; ring.style.height = '60px'; ring.style.marginLeft = '-12px'; ring.style.marginTop = '-12px'; });
+      el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; ring.style.marginLeft = '0'; ring.style.marginTop = '0'; });
+    });
+  }
+
+  // ===== PARTICLES =====
+  const pc = document.getElementById('particles');
+  if (pc) {
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
+      p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+      p.style.animationDelay = (Math.random() * 15) + 's';
+      pc.appendChild(p);
+    }
+  }
+
+  // ===== NAVBAR SCROLL =====
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.background =
+      window.scrollY > 50 ? 'rgba(5,5,5,0.98)' : 'rgba(10,10,10,0.85)';
+  });
+
+  // ===== COUNTER ANIMATION =====
+  function animateCount(el) {
+    const target = parseInt(el.dataset.target);
+    let current = 0;
+    const increment = target / 60;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = Math.floor(current) + (target >= 1000 ? '+' : target > 10 ? '+' : '+');
+    }, 30);
+  }
+
+  // ===== SCROLL ANIMATIONS =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        const counters = e.target.querySelectorAll ? e.target.querySelectorAll('[data-target]') : [];
+        counters.forEach(c => animateCount(c));
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const obs2 = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { animateCount(el); obs2.disconnect(); }
+    }, { threshold: 0.5 });
+    obs2.observe(el);
+  });
+
+  // ===== SLIDESHOW =====
+  let currentSlide = 0;
+  const totalSlides = document.querySelectorAll('.slide').length;
+  let slideInterval;
+  let progressInterval;
+  let progressWidth = 0;
+
+  function buildDots() {
+    const container = document.getElementById('slideDots');
+    for (let i = 0; i < totalSlides; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => goToSlide(i);
+      container.appendChild(d);
+    }
+  }
+
+  function goToSlide(n) {
+    currentSlide = (n + totalSlides) % totalSlides;
+    document.getElementById('slidesTrack').style.transform = `translateX(-${currentSlide * 100}%)`;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+    resetProgress();
+  }
+
+  function changeSlide(dir) { goToSlide(currentSlide + dir); }
+
+  function resetProgress() {
+    clearInterval(progressInterval);
+    progressWidth = 0;
+    const fill = document.getElementById('progressFill');
+    fill.style.width = '0%';
+    progressInterval = setInterval(() => {
+      progressWidth += 100 / 40;
+      fill.style.width = Math.min(progressWidth, 100) + '%';
+      if (progressWidth >= 100) {
+        goToSlide(currentSlide + 1);
+      }
+    }, 100);
+  }
+
+  buildDots();
+  resetProgress();
+
+  // ===== TESTIMONIALS =====
+  let currentTestimonial = 0;
+  const testimonials = document.querySelectorAll('.testimonial-item');
+  const tdots = document.getElementById('testimonialDots');
+
+  testimonials.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 't-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => showTestimonial(i);
+    tdots.appendChild(d);
+  });
+
+  function showTestimonial(n) {
+    testimonials[currentTestimonial].classList.remove('active');
+    document.querySelectorAll('.t-dot')[currentTestimonial].classList.remove('active');
+    currentTestimonial = (n + testimonials.length) % testimonials.length;
+    testimonials[currentTestimonial].classList.add('active');
+    document.querySelectorAll('.t-dot')[currentTestimonial].classList.add('active');
+  }
+
+  setInterval(() => showTestimonial(currentTestimonial + 1), 5000);
+
+  // ===== MOBILE MENU =====
+  function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); }
+  function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  // ===== GALLERY LIGHTBOX =====
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    if (img) {
+      document.getElementById('lightboxImg').src = img.src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+  }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  // ===== CONTACT FORM =====
+  function scrollToContact() {
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function submitForm() {
+    const name = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    const email = document.getElementById('femail').value.trim();
+    const msg = document.getElementById('fmessage').value.trim();
+    if (!name || !phone || !email || !msg) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+
+  // ===== SMOOTH ANCHOR LINKS =====
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Touch/Swipe support for slideshow
+  let touchStartX = 0;
+  const track = document.getElementById('slidesTrack');
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  track.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1);
+  });
+</script>
+</body>
+</html>
